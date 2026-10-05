@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smart Boda & Smart Bizna for the Makueni County Empowerment Fund</title>
+<style>
+:root{--g9:#0b3d2e;--g7:#12664b;--g1:#e3efe8;--am:#f5b82e;--ink:#17231e;--mut:#55655d;--bg:#f6f4ec;--rd:#7a3b2e}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--g9);font-family:"Segoe UI",Arial,sans-serif;color:var(--ink)}
+.slide{display:none;position:absolute;inset:0;padding:5vh 6vw 9vh;background:var(--bg);overflow:auto}
+.slide.on{display:flex;flex-direction:column;justify-content:center}
+.dark{background:var(--g9);color:#fff}
+h1{font-size:clamp(2rem,5vw,3.8rem);line-height:1.08;max-width:18ch}
+h2{font-size:clamp(1.5rem,3.2vw,2.4rem);line-height:1.15;max-width:30ch;margin-bottom:.4em}
+p.lead{font-size:clamp(1rem,1.6vw,1.25rem);line-height:1.5;max-width:62ch;color:var(--mut);margin:.6em 0 1.4em}
+.dark p.lead{color:#b9d3c6}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.box{background:#fff;border-left:5px solid var(--g7);padding:16px 18px;border-radius:4px}
+.box.a{border-color:var(--am)}.box.r{border-color:var(--rd)}
+.box h3{font-size:1.05rem;margin-bottom:6px;color:var(--g9)}
+.box p,.box li{font-size:.95rem;line-height:1.45;color:var(--mut)}
+.box ul{padding-left:1.1em}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.pair{grid-template-columns:1fr}}
+.brand{display:inline-block;background:var(--g7);color:#fff;padding:3px 10px;border-radius:3px;font-size:.85rem;margin-bottom:8px}
+.brand.b{background:var(--am);color:var(--g9)}
+table{border-collapse:collapse;width:100%;background:#fff;font-size:.95rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #dde5e0;vertical-align:top}
+th{background:var(--g9);color:#fff;font-weight:600}
+.bar{display:flex;height:34px;border-radius:4px;overflow:hidden;margin:10px 0 6px;font-size:.8rem;color:#fff}
+.bar span{display:flex;align-items:center;justify-content:center;padding:0 4px;text-align:center}
+.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:0;align-items:end;margin-top:8px}
+.tier{background:var(--g1);padding:14px;border-top:5px solid var(--g7)}
+.tier:nth-child(2){padding-top:34px}.tier:nth-child(3){padding-top:54px}.tier:nth-child(4){padding-top:74px;background:var(--g7);color:#fff;border-color:var(--am)}
+.tier h3{font-size:1rem;margin-bottom:4px}.tier p{font-size:.85rem;line-height:1.4}
+@media(max-width:760px){.tiers{grid-template-columns:1fr 1fr}.tier,.tier:nth-child(n){padding-top:14px}}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:760px){.flow{grid-template-columns:1fr}}
+.nav{position:fixed;bottom:0;left:0;right:0;height:7vh;min-height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 6vw;background:var(--g9);color:#b9d3c6;font-size:.85rem;z-index:5}
+.nav button{background:var(--am);border:0;color:var(--g9);font-weight:700;padding:8px 18px;border-radius:3px;cursor:pointer;font-size:.9rem}
+.nav button:focus-visible{outline:3px solid #fff}
+.stat{font-size:2.4rem;font-weight:700;color:var(--am)}
+@media print{.slide{display:flex!important;position:relative;height:100vh;page-break-after:always}.nav{display:none}}
+
+.hub{display:grid;grid-template-columns:1fr 36px 1.25fr 36px 1fr;align-items:center;gap:6px;margin-top:6px}
+.col{display:flex;flex-direction:column;gap:10px}
+.node{background:#fff;border-radius:6px;padding:12px 14px;border-top:5px solid var(--g7);font-size:.9rem;line-height:1.35;color:var(--mut)}
+.node b{display:block;color:var(--g9);font-size:1rem;margin-bottom:3px}
+.node.am{border-color:var(--am)}
+.plat{background:var(--g9);color:#fff;border-radius:8px;padding:14px 16px}
+.plat.am{background:#fff4d2;color:var(--g9)}
+.plat h3{font-size:1.15rem;margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chips span{background:rgba(255,255,255,.16);border-radius:12px;padding:3px 9px;font-size:.78rem}
+.plat.am .chips span{background:rgba(11,61,46,.1)}
+.arr{font-size:1.8rem;color:var(--g7);text-align:center;font-weight:700}
+.county{background:var(--g7);color:#fff;border-radius:8px;padding:16px;height:100%;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.county h3{font-size:1.15rem}
+.county div{background:rgba(255,255,255,.14);padding:7px 10px;border-radius:5px;font-size:.85rem}
+@media(max-width:900px){.hub{grid-template-columns:1fr}.arr{transform:rotate(90deg)}}
+table.pp{font-size:.82rem}
+table.pp th,table.pp td{padding:6px 10px}
+table.pp td.n{width:32px;color:var(--g7);font-weight:700}
+table.pp td.b{background:#fbeeea;color:#5a2a20}
+table.pp td.a{background:#eaf4ee;color:#0b3d2e}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.ba{grid-template-columns:1fr}}
+.ba .side{border-radius:6px;padding:16px 18px}
+.ba .bef{background:#fbeeea;border-top:6px solid var(--rd)}
+.ba .aft{background:#eaf4ee;border-top:6px solid var(--g7)}
+.ba h3{font-size:1.1rem;margin-bottom:8px;color:var(--g9)}
+.ba li{font-size:.92rem;line-height:1.4;margin:0 0 6px 1.1em;color:var(--ink)}
+.ba .row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px}
+
+.lad{display:grid;grid-template-columns:repeat(3,1fr);gap:0;align-items:end;margin:6px 0 14px}
+.lad div{padding:12px 14px;font-size:.9rem;line-height:1.35;border-top:6px solid}
+.lad b{display:block;font-size:1rem;margin-bottom:3px}
+.lad .l1{background:#fbeeea;border-color:var(--rd);color:#5a2a20}
+.lad .l2{background:#fff4d2;border-color:var(--am);color:var(--g9);padding-top:30px}
+.lad .l3{background:var(--g7);border-color:var(--am);color:#fff;padding-top:52px}
+@media(max-width:760px){.lad{grid-template-columns:1fr}.lad .l2,.lad .l3{padding-top:12px}}
+.tag{display:inline-block;background:var(--am);color:var(--g9);font-weight:700;font-size:.85rem;padding:4px 12px;border-radius:3px;margin-bottom:8px}
+.opt{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.opt{grid-template-columns:1fr}}
+.opt .box h3{font-size:1rem}
+
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(.1)}to{transform:scaleX(1)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(245,184,46,.6)}50%{box-shadow:0 0 0 10px rgba(245,184,46,0)}}
+.slide.on .rv{animation:rise .6s both;animation-delay:calc(var(--d,0)*110ms)}
+.why{padding:3.5vh 5vw 9vh}
+.why h1{font-size:clamp(1.6rem,3.6vw,2.7rem);max-width:30ch;line-height:1.1}
+.why .sub{color:#b9d3c6;font-size:clamp(.95rem,1.4vw,1.15rem);margin:.5em 0 1em}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.st{background:rgba(255,255,255,.08);border-radius:6px;padding:10px 14px}
+.st .num{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;color:var(--am)}
+.st .lab{font-size:.82rem;color:#d4e6db;line-height:1.3}
+.rail{margin:4px 0 14px;font-size:.82rem;color:#d4e6db}
+.rail .track{height:16px;background:rgba(255,255,255,.12);border-radius:8px;overflow:hidden;margin-top:5px}
+.rail .fill{height:100%;width:100%;transform-origin:left;background:linear-gradient(90deg,#12664b,var(--am));border-radius:8px}
+.slide.on .rail .fill{animation:grow 1.8s .5s both}
+.rail .ends{display:flex;justify-content:space-between;margin-top:3px;font-weight:700;color:#fff}
+.wg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:900px){.wg,.stats{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.wg,.stats{grid-template-columns:1fr}}
+.wc{background:#fff;color:var(--ink);border-radius:6px;border-top:5px solid var(--g7);padding:10px 12px}
+.wc.am{border-color:var(--am)}
+.wc b{display:block;color:var(--g9);font-size:.95rem;margin-bottom:3px}
+.wc span{font-size:.8rem;line-height:1.35;color:var(--mut)}
+.pill{display:inline-block;background:var(--am);color:var(--g9);font-weight:700;font-size:.8rem;padding:4px 12px;border-radius:14px;margin-bottom:8px;align-self:flex-start}
+.slide.on .pill{animation:pulse 2.2s 1s 2}
+@media(prefers-reduced-motion:reduce){.slide.on .rv,.slide.on .rail .fill,.slide.on .pill{animation:none}}
+
+.tri{display:grid;grid-template-columns:1fr 30px 1.15fr 30px 1fr;gap:6px;align-items:stretch;margin:4px 0 10px}
+.pn{border-radius:6px;padding:12px 16px;color:var(--ink)}
+.pn h3{font-size:1.05rem;margin-bottom:6px}
+.pn ul{padding-left:1.1em}.pn li{font-size:.92rem;line-height:1.4;margin-bottom:4px}
+.pn.b{background:#fbeeea;border-top:6px solid var(--rd)}
+.pn.w{background:#fff;border-top:6px solid var(--g7)}
+.pn.g{background:#fff4d2;border-top:6px solid var(--am)}
+.pn.b h3{color:#5a2a20}.pn.w h3,.pn.g h3{color:var(--g9)}
+.ar{display:flex;align-items:center;justify-content:center;color:var(--am);font-size:1.8rem;font-weight:700}
+.built{background:rgba(255,255,255,.1);border-radius:6px;padding:8px 14px;font-size:.9rem;color:#e3efe8}
+@media(max-width:900px){.tri{grid-template-columns:1fr}.ar{transform:rotate(90deg)}}
+
+.cap{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:900px){.cap{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.cap{grid-template-columns:1fr}}
+.cp{background:#fff;border-top:5px solid var(--g7);border-radius:4px;padding:10px 14px}
+.cp.am{border-color:var(--am)}
+.cp h3{font-size:1rem;color:var(--g9);margin-bottom:4px}
+.cp h3 i{font-style:normal;display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;background:var(--g9);color:#fff;font-size:.78rem;margin-right:6px}
+.cp ul{padding-left:1.1em}.cp li{font-size:.86rem;line-height:1.38;color:var(--mut);margin-bottom:2px}
+
+.aug{display:grid;grid-template-columns:1fr 30px 1fr 30px 1fr;gap:6px;align-items:stretch;margin:4px 0 6px}
+.aug .pn{padding:10px 14px}
+.aug .op{display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:700;color:var(--g7)}
+@media(max-width:900px){.aug{grid-template-columns:1fr}}
+
+.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:900px){.shots{grid-template-columns:1fr}}
+.shot{background:#fff;border-radius:6px;overflow:hidden;border-top:5px solid var(--g7)}
+.shot.am{border-color:var(--am)}
+.shot img{width:100%;aspect-ratio:16/10;object-fit:contain;background:#14161a;display:block;cursor:zoom-in;border-bottom:1px solid #dde5e0}
+.shot img.zm{position:fixed;inset:4vh 4vw;width:92vw;height:auto;max-height:92vh;object-fit:contain;z-index:20;background:#000;cursor:zoom-out;border-radius:6px}
+.shot .cap2{padding:10px 14px}
+.shot h3{font-size:1rem;color:var(--g9);margin-bottom:4px}
+.shot ul{padding-left:1.1em}.shot li{font-size:.84rem;line-height:1.38;color:var(--mut);margin-bottom:2px}
+
+.lane{margin-bottom:12px}
+.lane .lt{display:inline-block;font-weight:700;font-size:.9rem;padding:4px 12px;border-radius:3px;margin-bottom:6px;background:var(--g9);color:#fff}
+.lane.f .lt{background:var(--am);color:var(--g9)}
+.chain{display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+.chain div{position:relative;background:#fff;border-top:5px solid var(--g7);padding:10px 12px 10px 14px;font-size:.84rem;line-height:1.35;color:var(--mut);margin-right:14px}
+.chain div:after{content:"";position:absolute;right:-14px;top:0;bottom:0;width:14px;background:var(--g7);clip-path:polygon(0 0,100% 50%,0 100%);opacity:.25}
+.chain div:last-child{margin-right:0;border-color:var(--am);background:#fff4d2}
+.chain div:last-child:after{display:none}
+.chain b{display:block;color:var(--g9);font-size:.92rem;margin-bottom:2px}
+.lane.f .chain div{border-color:var(--am)}
+.lane.f .chain div:last-child{border-color:var(--g7);background:#eaf4ee}
+@media(max-width:900px){.chain{grid-template-columns:1fr;gap:8px}.chain div{margin-right:0}.chain div:after{display:none}}
+
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch}
+.cmp .hd{font-weight:700;font-size:.9rem;text-align:center;padding:7px 8px;border-radius:5px;color:#fff}
+.cmp .hd.no{background:var(--rd)}.cmp .hd.yes{background:var(--g7)}
+.cmp .lane{background:var(--g9);color:#fff;border-radius:5px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;font-size:.78rem;line-height:1.25;padding:6px}
+.cmp .lane b{display:block;font-size:.95rem;color:var(--am)}
+.cmp .cell{border-radius:6px;padding:14px 12px 10px}
+.cmp .cell.no{background:#fbeeea;border-top:5px solid var(--rd)}
+.cmp .cell.yes{background:#eaf4ee;border-top:5px solid var(--g7)}
+.cmp .its{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 6px}
+.cmp .it{text-align:center;font-size:.8rem;line-height:1.25;color:var(--ink)}
+.cmp .it span{display:flex;width:46px;height:46px;margin:0 auto 5px;border-radius:50%;background:#fff;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.cmp .mt{height:12px;background:rgba(0,0,0,.1);border-radius:5px;margin:14px 0 3px;overflow:hidden}
+.cmp .mt i{display:block;height:100%;border-radius:5px}
+.cmp .no .mt i{width:22%;background:var(--rd)}.cmp .yes .mt i{width:92%;background:var(--g7)}
+.cmp .ml{font-size:.72rem;font-weight:700;color:var(--g9);display:flex;justify-content:space-between}
+.chips10{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chips10 span{background:#fff;border:1px solid #cfdcd5;border-radius:14px;padding:3px 10px;font-size:.76rem;color:var(--g9)}
+.chips10 b{color:var(--g7)}
+@media(max-width:760px){.cmp{grid-template-columns:1fr}}
+.ap{display:flex;gap:18px;align-items:flex-start}.ap.v{flex-direction:column}
+.zw{position:relative;display:block}.zw:not(:has(.zm))::after{content:"\1F50D";position:absolute;right:8px;top:8px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.7);color:#fff;font-size:.95rem;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.zw img{cursor:zoom-in}.zw img.zm{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:auto!important;height:auto!important;max-width:94vw;max-height:94vh;object-fit:contain!important;z-index:30;background:#000;cursor:zoom-out;border-radius:8px}
+.ph{display:flex;gap:12px;flex:none}.ph figure,.ld figure{margin:0;text-align:center;font-size:.76rem;color:var(--g9);font-weight:700}
+.ph img{height:510px;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.3);display:block;margin-bottom:4px}
+.ld{display:flex;gap:12px;width:100%}.ld figure{flex:1}.ld img{width:100%;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.3);display:block;margin-bottom:4px}
+.ft{display:grid;gap:6px 14px;font-size:.74rem;line-height:1.3;flex:1}.ft.c1{grid-template-columns:1fr}.ft.c4{grid-template-columns:repeat(4,1fr)}
+.ft div{background:#fff;border-left:4px solid var(--g7);padding:5px 8px;border-radius:3px}.ft b{display:block;color:var(--g9);font-size:.78rem}.ft .k{border-left-color:var(--am)}
+.t10{display:grid;grid-template-columns:repeat(5,1fr);grid-auto-rows:1fr;gap:12px;min-height:50vh}
+.t10 div{background:#fff;border-top:6px solid var(--g7);padding:14px 14px 12px;border-radius:6px;font-size:1.22rem;line-height:1.28;font-weight:600;color:var(--ink);box-shadow:0 2px 6px rgba(0,0,0,.12);display:flex;flex-direction:column;gap:8px}
+.t10 div:nth-child(even){border-top-color:var(--am)}
+.t10 b{display:flex;align-items:center;justify-content:space-between;font-size:2.3rem;line-height:1}
+.t10 s{text-decoration:none;background:var(--g9);color:#fff;border-radius:50%;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700}
+.msg{background:var(--g9);color:#fff;border-radius:6px;padding:14px 18px;margin-top:14px;font-size:1rem;line-height:1.35}.msg b{color:var(--am)}
+@media(max-width:900px){.ap{flex-direction:column}.ph{overflow-x:auto;max-width:100%}.ph img{height:420px}.ft.c4,.t10{grid-template-columns:1fr 1fr}.ld{flex-direction:column}}
+/* Slide 8: fill the slide with larger, scaled cards */
+.s8.on{justify-content:flex-start}
+.s8 h2{max-width:60ch;margin-bottom:clamp(6px,1.2vh,12px)}
+.s8 .cmp{flex:1 1 auto;min-height:0;grid-template-rows:auto 1fr;gap:clamp(8px,1.4vh,14px) 12px}
+.s8 .hd{font-size:clamp(1rem,2.4vh,1.3rem);padding:clamp(8px,1.4vh,13px)}
+.s8 .cell{display:flex;flex-direction:column;padding:clamp(10px,1.8vh,18px) clamp(10px,1.2vw,18px)}
+.s8 .its{flex:1;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:clamp(6px,1.2vh,12px)}
+.s8 .it{display:flex;align-items:center;gap:clamp(8px,1vw,14px);text-align:left;background:rgba(255,255,255,.8);border-radius:8px;padding:4px clamp(8px,1vw,14px);font-size:clamp(.88rem,2.1vh,1.2rem);font-weight:600;line-height:1.2}
+.s8 .it span{flex:none;margin:0;width:clamp(38px,6.6vh,66px);height:clamp(38px,6.6vh,66px);font-size:clamp(1.3rem,3.5vh,2.1rem)}
+.s8 .mt{height:clamp(14px,2.4vh,22px);margin:clamp(8px,1.6vh,16px) 0 4px}
+.s8 .ml{font-size:clamp(.8rem,1.9vh,1.05rem)}
+.s8 .ben{margin-top:clamp(8px,1.6vh,16px)}
+.s8 .ben p{font-size:clamp(.95rem,2.2vh,1.2rem);color:var(--mut);margin-bottom:clamp(4px,.8vh,8px)}
+.s8 .ben p b{color:var(--g9)}
+.s8 .chips10{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(6px,1vh,10px);margin-top:0}
+.s8 .chips10 span{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:2px;background:#fff;border:1px solid #cfdcd5;border-top:4px solid var(--g7);border-radius:8px;padding:clamp(6px,1.2vh,12px) 8px;font-size:clamp(.8rem,1.9vh,1.05rem);font-weight:600;line-height:1.2}
+.s8 .chips10 span:nth-child(even){border-top-color:var(--am)}
+.s8 .chips10 em{font-style:normal;font-size:clamp(1.2rem,3.2vh,1.9rem);line-height:1}
+@media(max-width:900px){.s8 .chips10{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.s8 .its{grid-template-columns:1fr}}
+
+/* Slide 7: same format as slide 4 of Smart_Bizna_Makueni_Slides */
+.s7{background:linear-gradient(135deg,#0b3d2e,#12664b);color:#fff}
+.s7.on{justify-content:flex-start;padding:4vh 5vw 9vh}
+.s7 h2{font-size:clamp(20px,2.8vw,36px);margin:2px 0 8px;color:var(--am);line-height:1.15;max-width:none}
+.s7 .k{color:var(--am);font-weight:700;letter-spacing:.12em;font-size:12px;text-transform:uppercase}
+.s7 .ba{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:stretch;margin-top:8px;flex:1}
+.s7 .pn{border-radius:16px;padding:10px 14px;display:flex;flex-direction:column;gap:6px;border-top:0}
+.s7 .bf{background:#e4dfd0;border:2px dashed #9a917a;color:#4a4436}
+.s7 .af{background:#fff;border:2px solid var(--g7);color:var(--ink);box-shadow:0 4px 14px #12664b33}
+.s7 .pn h3{margin:0;font-size:clamp(14px,1.6vw,20px)}
+.s7 .bf h3{color:#7a3b2e}.s7 .af h3{color:var(--g7)}
+.s7 .sc{display:flex;align-items:center;gap:10px;border-radius:10px;padding:6px 10px;font-size:clamp(11px,1.15vw,15px);line-height:1.3}
+.s7 .bf .sc{background:#f0ebdc;filter:grayscale(.6)}.s7 .af .sc{background:#e9f5ee}
+.s7 .sc i{font-style:normal;font-size:clamp(22px,3vw,40px)}.s7 .bf .sc i{transform:rotate(-6deg)}
+.s7 .mid{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--am);font-weight:800;font-size:12px;text-align:center}
+.s7 .mid .ar{display:block;transform:none;color:var(--am);font-size:clamp(28px,4vw,54px);line-height:1}
+.s7 .mt{display:flex;justify-content:space-between;gap:6px;margin-top:auto;font-size:clamp(10px,1vw,13px);font-weight:700}
+.s7 .bf .mt{color:#7a3b2e}.s7 .af .mt{color:var(--g7)}
+.s7 .n{font-size:11px;color:#b9d3c6;margin-top:auto;padding-top:8px}
+@media(max-width:760px){.s7 .ba{grid-template-columns:1fr}.s7 .mid{flex-direction:row;justify-content:center}.s7 .mid .ar{transform:rotate(90deg)}}
+
+/* Slide 7: fit 10 rows per side */
+.s7 .pn{gap:clamp(3px,.8vh,8px);padding:clamp(6px,1.2vh,12px) 14px}
+.s7 .sc{flex:1;padding:2px 10px;gap:10px;font-size:clamp(10px,1.85vh,15px);line-height:1.2}
+.s7 .sc i{font-size:clamp(16px,3.4vh,30px);width:1.3em;text-align:center;flex:none}
+.s7 .sc b{color:#0b3d2e}.s7 .bf .sc b{color:#7a3b2e}
+.s7 .mt{font-size:clamp(10px,1.8vh,13px)}
+.rec2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+.rec2>div{background:#fff;border:1px solid #cfdcd5;border-top:6px solid var(--g7);border-radius:8px;padding:18px 20px}
+.rec2>div:nth-child(2){border-top-color:var(--am)}
+.rec2 .rh{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--g9);font-size:1.15rem;margin-bottom:8px}
+.rec2 .rh em{font-style:normal;font-size:1.8rem}
+.rec2 p{font-size:1.05rem;line-height:1.45}
+.rec2 p b{color:var(--g7)}
+@media(max-width:760px){.rec2{grid-template-columns:1fr}}
+</style></head><body>
+
+<section class="slide on" style="background:var(--g9);color:#fff;position:relative;justify-content:center">
+<div style="position:absolute;top:0;left:0;right:0;height:10px;display:flex"><i style="flex:1;background:#1f5fae"></i><i style="flex:2;background:#fff"></i><i style="flex:1;background:#2e9b4f"></i></div>
+<div style="margin-top:9vh;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--am);font-weight:700">County Government of Makueni</div>
+<div style="font-size:.9rem;opacity:.85;margin:4px 0 22px">Department of Gender, Children, Youth, Sports and Social Services</div>
+<div style="font-size:clamp(1.9rem,4.2vw,3.2rem);line-height:1.12;font-weight:800;max-width:30ch">Digital Group &amp; Sacco,<br>Smart Boda and Smart Bizna</div>
+<div style="font-size:clamp(1rem,1.7vw,1.35rem);line-height:1.35;max-width:46ch;margin:14px 0 26px;opacity:.95">Strategic digital infrastructure for the Makueni County Empowerment Fund (MCEF): accountable lending, financial inclusion and evidence-based empowerment</div>
+<div style="border-left:5px solid var(--am);padding:4px 0 4px 16px"><div style="font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;opacity:.8">Prepared for</div>
+<div style="font-size:1.45rem;font-weight:700;margin:2px 0">Hon. Irene Makau</div>
+<div style="font-size:.98rem;line-height:1.35;max-width:52ch">County Executive Committee Member, Trade, Marketing, Industry, Culture and Tourism, and Acting Executive for ICT<br>County Government of Makueni</div></div>
+<div style="border-left:5px solid var(--am);padding:4px 0 4px 16px;margin-top:16px"><div style="font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;opacity:.8">Prepared by</div>
+<div style="font-size:1.45rem;font-weight:700;margin:2px 0">Mr. Martin Masila</div>
+<div style="font-size:.98rem;line-height:1.35;max-width:52ch">IT Consultant, Simple Smart Apps Hub</div></div>
+<div style="display:flex;justify-content:space-between;font-size:.78rem;opacity:.75;margin-top:34px;border-top:1px solid rgba(255,255,255,.25);padding-top:10px;max-width:100%"><span>Haven of Opportunities</span><span>October 2026</span></div>
+</section>
+<section class="slide">
+<h2>The Digital Group and Sacco app: end-to-end features</h2>
+<p class="lead" style="margin:.2em 0 .8em">Everything a group needs to run itself, in one app. <span class="brand">Smart Boda</span> serves Boda Riders and their respective SACCOs, <span class="brand b">Smart Bizna</span> serves Business Owners and their respective Groups.</p>
+<div class="cap"><div class="cp"><h3><i>1</i>Membership</h3><ul><li>Member profiles and registration</li><li>Officials and roles: chair, secretary, treasurer</li><li>Suspend, exit and member portal on the phone</li></ul></div><div class="cp am"><h3><i>2</i>Contributions</h3><ul><li>Contribution types and schedules</li><li>Merry-go-round and welfare schedules</li><li>Invoices, reminders and M-Pesa payments</li></ul></div><div class="cp"><h3><i>3</i>Fines and penalties</h3><ul><li>Fine categories set by the group</li><li>Automatic fines for late payment</li><li>Fines shown on each member's statement</li></ul></div><div class="cp am"><h3><i>4</i>Loans</h3><ul><li>Loan products: interest, term, limits from savings</li><li>Applications, guarantors and approval</li><li>Repayment schedule, arrears and statements</li></ul></div><div class="cp"><h3><i>5</i>Meetings</h3><ul><li>Schedule and agenda</li><li>Attendance register</li><li>Minutes and resolutions stored</li></ul></div><div class="cp am"><h3><i>6</i>Accounting and ledgers</h3><ul><li>Group cash book and ledgers</li><li>Income and expense records</li><li>Cash, bank and M-Pesa account tracking</li></ul></div><div class="cp"><h3><i>7</i>Investments and assets</h3><ul><li>Group projects and assets register</li><li>Investment tracking and returns</li><li>Dividend and share-out records</li></ul></div><div class="cp am"><h3><i>8</i>Reports</h3><ul><li>Member and loan statements</li><li>Cash flow, income statement, balance sheet</li><li>Contribution and fines summaries</li></ul></div><div class="cp"><h3><i>9</i>Alerts and communication</h3><ul><li>SMS and in-app reminders</li><li>Meeting and payment notices</li><li>Group announcements</li></ul></div></div>
+<p class="note" style="font-size:.82rem;color:var(--mut);margin-top:.8em">All group data also feeds the County Officials Dashboard, giving the County a verified view of every funded group.</p>
+</section>
+<section class="slide">
+<h2>The Smart Boda Rider app: end-to-end features</h2>
+<p class="lead" style="margin:.2em 0 .8em">Everything a boda rider or bike owner needs to run the business, in one app that works online, offline and by USSD. <span class="brand">Smart Boda</span> serves Boda Riders and their respective SACCOs.</p>
+<div class="cap"><div class="cp"><h3><i>1</i>Onboarding and registration</h3><ul><li>Mobile number, OTP and PIN set-up</li><li>Rider and bike profile with plate number</li><li>Free trial; app and USSD access for feature phones</li></ul></div><div class="cp am"><h3><i>2</i>Daily trade recording</h3><ul><li>Trip fares entered in a tap</li><li>Works offline and syncs automatically</li><li>Trips recorded by USSD or SMS</li></ul></div><div class="cp"><h3><i>3</i>Fuel, charging and battery swap</h3><ul><li>Fuel, charging and battery-swap costs</li><li>Swap networks such as Ampersand, Roam and Spiro</li><li>Odometer readings and battery range alerts</li></ul></div><div class="cp am"><h3><i>4</i>Maintenance and asset health</h3><ul><li>Service log by type, such as oil changes</li><li>Mileage-based service reminders</li><li>Complete history for each bike</li></ul></div><div class="cp"><h3><i>5</i>Income vs expense</h3><ul><li>Income and expenses side by side</li><li>Categories: SACCO dues, loan repayment, household</li><li>Daily, weekly and monthly profit</li></ul></div><div class="cp am"><h3><i>6</i>Revenue targets and streaks</h3><ul><li>Daily, weekly and monthly targets</li><li>Progress shown against each target</li><li>Achievement streaks that reward consistency</li></ul></div><div class="cp"><h3><i>7</i>Compliance and licensing</h3><ul><li>PSV licence and insurance certificate tracked</li><li>Expiry reminders before documents lapse</li><li>Links to NTSA TIMS, eCitizen and Huduma Centre</li></ul></div><div class="cp am"><h3><i>8</i>Community, SACCO and Chama</h3><ul><li>Savings deposits to SACCO and Chama accounts</li><li>Dues and contributions recorded</li><li>Savings totals the SACCO can rely on</li></ul></div><div class="cp"><h3><i>9</i>History, goals and account</h3><ul><li>Statements for loans, SACCO standing and insurance</li><li>Personal goals, Send Home and data export</li><li>Subscription paid by M-Pesa, plus feedback</li></ul></div></div>
+<p class="note" style="font-size:.82rem;color:var(--mut);margin-top:.8em">Rider records build a verified income and compliance history that SACCOs, lenders and the County can rely on.</p>
+</section>
+<section class="slide">
+<h2>The Smart Bizna Business Owner app: end-to-end features</h2>
+<p class="lead" style="margin:.2em 0 .8em">Everything a business owner needs to know the real numbers, in one app that works even without internet. <span class="brand b">Smart Bizna</span> serves Business Owners and their respective Groups.</p>
+<div class="cap"><div class="cp"><h3><i>1</i>Onboarding and set-up</h3><ul><li>One-tap language choice</li><li>Business name and type: retail, restaurant, salon, services, wholesale</li><li>PIN login and a free trial day</li></ul></div><div class="cp am"><h3><i>2</i>Sales recording</h3><ul><li>New sale with several items on the keypad</li><li>Saved instantly, fully offline</li><li>Sales today shown on the home screen</li></ul></div><div class="cp"><h3><i>3</i>Purchases and expenses</h3><ul><li>Supplier purchases with name, phone and amount</li><li>Payment method recorded</li><li>All running expenses tracked</li></ul></div><div class="cp am"><h3><i>4</i>Lipa Later (credit sales)</h3><ul><li>Customer, amount and due date recorded</li><li>Ageing report for pending customers</li><li>Total outstanding at a glance</li></ul></div><div class="cp"><h3><i>5</i>Daily summary and performance</h3><ul><li>Sales, expenses and profit for today</li><li>Total sales, number of sales and average sale</li><li>Profit = total sales minus total expenses</li></ul></div><div class="cp am"><h3><i>6</i>Revenue targets and goals</h3><ul><li>Sales targets for the business</li><li>Financial goals with progress tracking</li><li>Targets reviewed against actual results</li></ul></div><div class="cp"><h3><i>7</i>Savings and Send Money Home</h3><ul><li>Savings accounts and contributions</li><li>Send earnings home to family and friends</li><li>Remittance history on record</li></ul></div><div class="cp am"><h3><i>8</i>Financial history and statements</h3><ul><li>All transactions in one view</li><li>Total profit across periods</li><li>Statements to support loan applications</li></ul></div><div class="cp"><h3><i>9</i>Sync, subscription and support</h3><ul><li>Sync status shows data is safely backed up</li><li>Free trial and premium subscription plans</li><li>Suggestions, Terms and Data Privacy Notice</li></ul></div></div>
+<p class="note" style="font-size:.82rem;color:var(--mut);margin-top:.8em">Business-owner records feed the group a member belongs to, giving the County a verified view of enterprise performance.</p>
+</section>
+<section class="slide s7"><span class="k">Before and after</span><h2>Before and after Implementing the Smart Bizna Groups app</h2>
+<div class="ba">
+<div class="pn bf"><h3>📕 BEFORE: the notebook group</h3>
+<div class="sc"><i>📓</i><span><b>Contributions:</b> Written in a treasurer's notebook</span></div><div class="sc"><i>🤷</i><span><b>Balances and trust:</b> Disputes over who paid and what is owed</span></div><div class="sc"><i>💵</i><span><b>Payments:</b> Cash handed over, receipts lost or missing</span></div><div class="sc"><i>⏰</i><span><b>Loans and arrears:</b> Terms remembered by memory, late repayments forgotten</span></div><div class="sc"><i>⚖️</i><span><b>Fines:</b> Applied inconsistently, often by favour</span></div><div class="sc"><i>🗣️</i><span><b>Meetings:</b> No attendance or minutes on record</span></div><div class="sc"><i>🗂️</i><span><b>Record safety:</b> One notebook that can be lost, damaged or altered</span></div><div class="sc"><i>🔄</i><span><b>Leadership change:</b> Records handed over by word of mouth</span></div><div class="sc"><i>🧮</i><span><b>Reports:</b> Year-end figures rebuilt by hand, often disputed</span></div><div class="sc"><i>🏦</i><span><b>Credit and County visibility:</b> Hard to prove savings, the County sees only a proposal and a visit</span></div>
+<div class="mt"><span>Disputes</span><span>Lost records</span><span>Unseen by funders</span></div></div>
+<div class="mid"><span>SMART<br>BIZNA</span><span class="ar">➜</span></div>
+<div class="pn af"><h3>📗 AFTER: the Smart Bizna Group</h3>
+<div class="sc"><i>📓</i><span><b>Contributions:</b> Recorded instantly and tied to each member</span></div><div class="sc"><i>🤷</i><span><b>Balances and trust:</b> Each member sees their own balance and verifies the same numbers</span></div><div class="sc"><i>💵</i><span><b>Payments:</b> M-Pesa payments matched automatically to members</span></div><div class="sc"><i>⏰</i><span><b>Loans and arrears:</b> Limits and schedules set in the app, arrears flagged automatically</span></div><div class="sc"><i>⚖️</i><span><b>Fines:</b> Set by the group and shown on every statement</span></div><div class="sc"><i>🗣️</i><span><b>Meetings:</b> Attendance, minutes and resolutions stored digitally</span></div><div class="sc"><i>🗂️</i><span><b>Record safety:</b> Records backed up with a clear audit trail</span></div><div class="sc"><i>🔄</i><span><b>Leadership change:</b> Full history passes cleanly to new officials</span></div><div class="sc"><i>🧮</i><span><b>Reports:</b> Statements, cash flow and balance sheet in a tap</span></div><div class="sc"><i>🏦</i><span><b>Credit and County visibility:</b> Verifiable savings history and a Readiness Score</span></div>
+<div class="mt"><span>Transparent</span><span>Tracked</span><span>Fundable</span></div></div></div>
+<p class="n">Same group, same members, with a phone that keeps the books.</p></section>
+<section class="slide s7"><span class="k">Before and after</span><h2>Before and after Implementing the Smart Boda Rider app</h2>
+<div class="ba">
+<div class="pn bf"><h3>📕 BEFORE: the paper-and-memory rider</h3>
+<div class="sc"><i>🏍️</i><span><b>Daily income:</b> Trips remembered at day's end, cash mixed with personal money</span></div><div class="sc"><i>⛽</i><span><b>Fuel and charging:</b> Costs guessed, no clear picture of what a day really costs</span></div><div class="sc"><i>🔧</i><span><b>Maintenance:</b> Servicing only after the bike breaks down</span></div><div class="sc"><i>📊</i><span><b>Profit:</b> Unsure what is left after fuel, repairs and dues</span></div><div class="sc"><i>🎯</i><span><b>Targets:</b> Daily targets kept in the head, no streaks or progress</span></div><div class="sc"><i>📄</i><span><b>Compliance:</b> Licence and insurance expiry noticed late</span></div><div class="sc"><i>🤝</i><span><b>SACCO and savings:</b> Dues and savings kept in a book or on paper</span></div><div class="sc"><i>🏦</i><span><b>Credit:</b> No records to show a lender or SACCO</span></div>
+<div class="mt"><span>Guesswork</span><span>Late reminders</span><span>Invisible to lenders</span></div></div>
+<div class="mid"><span>SMART<br>BODA</span><span class="ar">➜</span></div>
+<div class="pn af"><h3>📗 AFTER: the Smart Boda rider</h3>
+<div class="sc"><i>🏍️</i><span><b>Daily income:</b> Every trip fare logged in a tap, offline or by USSD</span></div><div class="sc"><i>⛽</i><span><b>Fuel and charging:</b> Fuel, charging and battery swaps recorded with odometer readings</span></div><div class="sc"><i>🔧</i><span><b>Maintenance:</b> Mileage-based service reminders and a full service history</span></div><div class="sc"><i>📊</i><span><b>Profit:</b> Income against expenses shown daily, weekly and monthly</span></div><div class="sc"><i>🎯</i><span><b>Targets:</b> Revenue targets with progress and achievement streaks</span></div><div class="sc"><i>📄</i><span><b>Compliance:</b> PSV licence and insurance expiry reminders</span></div><div class="sc"><i>🤝</i><span><b>SACCO and savings:</b> SACCO and Chama deposits and dues recorded and totalled</span></div><div class="sc"><i>🏦</i><span><b>Credit:</b> Statements for loan applications, SACCO standing and insurance</span></div>
+<div class="mt"><span>Recorded</span><span>Reminded</span><span>Bankable</span></div></div></div>
+<p class="n">Same rider, same bike, with a phone that keeps the books.</p></section>
+<section class="slide s7"><span class="k">Before and after</span><h2>Before and after Implementing the Smart Bizna Business Owner app</h2>
+<div class="ba">
+<div class="pn bf"><h3>📕 BEFORE: the notebook business</h3>
+<div class="sc"><i>🧾</i><span><b>Daily sales:</b> Sales kept in a notebook or in memory</span></div><div class="sc"><i>💰</i><span><b>True profit:</b> No clear view of whether the business really makes money</span></div><div class="sc"><i>🛒</i><span><b>Purchases and suppliers:</b> Supplier purchases unrecorded or lost</span></div><div class="sc"><i>💸</i><span><b>Expenses:</b> Small running costs forgotten</span></div><div class="sc"><i>📒</i><span><b>Credit sales:</b> Who owes what, and when, remembered by memory</span></div><div class="sc"><i>🎯</i><span><b>Targets and goals:</b> No sales target or way to measure progress</span></div><div class="sc"><i>🏦</i><span><b>Savings:</b> Savings mixed with working capital</span></div><div class="sc"><i>📑</i><span><b>Financial history:</b> Nothing to show a lender or the County</span></div>
+<div class="mt"><span>Guesswork</span><span>Lost records</span><span>Unseen by lenders</span></div></div>
+<div class="mid"><span>SMART<br>BIZNA</span><span class="ar">➜</span></div>
+<div class="pn af"><h3>📗 AFTER: the Smart Bizna business</h3>
+<div class="sc"><i>🧾</i><span><b>Daily sales:</b> Each sale entered on the keypad and saved instantly, even offline</span></div><div class="sc"><i>💰</i><span><b>True profit:</b> Sales, expenses and profit shown for every day</span></div><div class="sc"><i>🛒</i><span><b>Purchases and suppliers:</b> Purchases logged with supplier details and payment method</span></div><div class="sc"><i>💸</i><span><b>Expenses:</b> Every expense recorded with description and amount</span></div><div class="sc"><i>📒</i><span><b>Credit sales:</b> Lipa Later customers, due dates and an ageing report</span></div><div class="sc"><i>🎯</i><span><b>Targets and goals:</b> Sales targets and goals with progress tracking</span></div><div class="sc"><i>🏦</i><span><b>Savings:</b> Savings accounts and contributions tracked separately</span></div><div class="sc"><i>📑</i><span><b>Financial history:</b> Complete transaction history and statements for lenders</span></div>
+<div class="mt"><span>Recorded</span><span>Tracked</span><span>Fundable</span></div></div></div>
+<p class="n">Same business, same owner, with a phone that keeps the books.</p></section>
+
+
+<section class="slide s8">
+<h2>A Group on the Smart Bizna Groups app is a better MCEF (Makueni County Empowerment Fund) candidate</h2>
+<div class="cmp"><div class="hd no">Group NOT using the Smart Bizna Groups app</div><div class="hd yes">Group using the Smart Bizna Groups app</div>
+<div class="cell no"><div class="its"><div class="it"><span>📓</span>Notebook records only</div><div class="it"><span>🤷</span>No proof of savings</div><div class="it"><span>🚶</span>Needs visits to verify</div><div class="it"><span>❓</span>Repayments not visible</div><div class="it"><span>⏰</span>Arrears found late</div><div class="it"><span>🔒</span>Stuck at the same limit</div></div><div class="mt"><i></i></div><div class="ml"><span>Fundability</span><span>Low confidence, higher risk to fund</span></div></div><div class="cell yes"><div class="its"><div class="it"><span>📱</span>Digital records, every month</div><div class="it"><span>📈</span>Proof of savings and discipline</div><div class="it"><span>✅</span>Readiness Score on file</div><div class="it"><span>💳</span>Every instalment recorded</div><div class="it"><span>🔔</span>Early arrears alerts</div><div class="it"><span>🚀</span>Qualifies for a higher limit</div></div><div class="mt"><i></i></div><div class="ml"><span>Fundability</span><span>High confidence, lower risk to fund</span></div></div></div>
+<div class="ben"><p><b style="color:var(--g9)">10 benefits to the County and its fund</b> (bars are illustrative)</p>
+<div class="chips10"><span><em>🔍</em><b>1.</b>&nbsp;Verified group data</span><span><em>🎯</em><b>2.</b>&nbsp;Smarter funding decisions</span><span><em>🛡️</em><b>3.</b>&nbsp;Lower default risk</span><span><em>🔁</em><b>4.</b>&nbsp;Faster repayments</span><span><em>⚡</em><b>5.</b>&nbsp;Faster vetting</span><span><em>🖥️</em><b>6.</b>&nbsp;Real-time monitoring</span><span><em>📋</em><b>7.</b>&nbsp;Accountability</span><span><em>🌍</em><b>8.</b>&nbsp;Wider reach</span><span><em>📊</em><b>9.</b>&nbsp;Evidence of impact</span><span><em>🌱</em><b>10.</b>&nbsp;Stronger local economy</span></div></div>
+</section>
+<section class="slide"><h2 style="margin-bottom:.3em;max-width:60ch">Transforming Trade and Enterprise Development Through Digital Group &amp; Sacco, Smart Boda, and Smart Bizna</h2><div class="t10"><div><b><s>1</s>📱</b>Informal businesses and trader groups digitised</div><div><b><s>2</s>📒</b>Better record-keeping and financial management</div><div><b><s>3</s>💳</b>Affordable credit unlocked by verifiable records</div><div><b><s>4</s>🗺️</b>County-wide visibility of business performance</div><div><b><s>5</s>📈</b>Business growth through data-driven insights</div><div><b><s>6</s>🧾</b>Revenue planning from aggregated data</div><div><b><s>7</s>🤝</b>Stronger market linkages and collaboration</div><div><b><s>8</s>✅</b>Support for formalization and compliance</div><div><b><s>9</s>🛡️</b>Fewer business failures through financial discipline</div><div><b><s>10</s>👣</b>A digital economic footprint for evidence-based trade policy</div></div>
+<div class="msg"><b>Digital foundation:</b> together the three platforms give Makueni County a base for sustainable trade growth, enterprise development and financial inclusion, as strategic digital infrastructure rather than just software.</div></section>
+
+<section class="slide"><h2 style="margin-bottom:.3em;max-width:60ch">Empowering Youth, Women, and Community Groups Through Digital Inclusion</h2><div class="t10"><div><b><s>1</s>📚</b>Financial literacy and responsible money management</div><div><b><s>2</s>🌐</b>Digital inclusion for youth and women-led groups</div><div><b><s>3</s>💰</b>Empowerment funds reached through verifiable records</div><div><b><s>4</s>🔍</b>Transparent group savings, loans and contributions</div><div><b><s>5</s>🪪</b>Financial identities for the underserved</div><div><b><s>6</s>⚖️</b>Stronger accountability and governance in groups</div><div><b><s>7</s>🚪</b>Better access to future financing</div><div><b><s>8</s>🌱</b>Youth- and women-owned enterprises that last</div><div><b><s>9</s>📊</b>Data-driven monitoring of programme outcomes</div><div><b><s>10</s>🎯</b>Measurable impact and evidence of fund use</div></div>
+<div class="msg"><b>Real-time tracking:</b> the County sees each funded group's progress, growth, financial discipline and impact as it happens. That makes empowerment transparent, accountable and data-driven, reduces dependency, promotes entrepreneurship, and gives successful groups a clear path to graduate to higher funding. This is infrastructure for inclusion, accountable lending and evidence-based decisions across all revolving fund programmes.</div></section>
+
+<section class="slide"><span class="k" style="font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--g7)">Recommendation</span><h2 style="max-width:60ch">Smart Bizna Groups: the record-keeping layer behind every MCEF loan</h2>
+<div class="rec2"><div><div class="rh"><em>✅</em>Groups already enrolled in the MCEF Fund</div><p>These groups should be <b>onboarded onto the Smart Bizna Groups app</b>, working alongside the County's Safaricom-partnered lending platform and M-PESA payments. Contributions, loans and repayments become verified group records, and arrears are flagged early to protect the fund's revolving capital.</p></div>
+<div><div class="rh"><em>🔎</em>Groups currently being vetted for the Fund</div><p>These groups should be <b>advised to enrol on the Smart Bizna Groups digital platform</b> before approval. A verifiable history of savings and repayment discipline, together with a Readiness Score, gives the County a reliable basis for fair, evidence-based funding decisions.</p></div></div>
+<div class="msg"><b>The result:</b> Makueni County lends with confidence, strengthens recovery and reduces default risk, and recycles the fund to reach more youth, women and community groups through transparent, accountable and data-driven empowerment.</div></section>
+<div class="nav"><span id="ct">1 / 9</span><span>Use arrow keys or buttons</span><span><button id="pv">Back</button> <button id="nx">Next</button></span></div>
+<script>
+window.kick=function(el){var n=el.querySelectorAll('[data-to]');n.forEach(function(x){var to=+x.dataset.to,pre=x.dataset.pre||'',suf=x.dataset.suf||'';if(matchMedia('(prefers-reduced-motion:reduce)').matches){x.textContent=pre+to+suf;return}var t0=null;function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/1300);x.textContent=pre+Math.round(to*k)+suf;if(k<1)requestAnimationFrame(f)}requestAnimationFrame(f)})};
+var s=[].slice.call(document.querySelectorAll('.slide')),i=0;
+function go(n){i=Math.max(0,Math.min(s.length-1,n));s.forEach(function(e,k){e.classList.toggle('on',k===i)});document.getElementById('ct').textContent=(i+1)+' / '+s.length;document.getElementById('nx').style.display=(i===s.length-1)?'none':'';document.getElementById('pv').style.display=(i===0)?'none':'';if(window.kick)window.kick(s[i])}
+document.getElementById('nx').onclick=function(){go(i+1)};document.getElementById('pv').onclick=function(){go(i-1)};
+document.addEventListener('keydown',function(e){if(['ArrowRight','PageDown',' '].indexOf(e.key)>-1)go(i+1);if(['ArrowLeft','PageUp'].indexOf(e.key)>-1)go(i-1)});
+go(0);
+</script></body></html>
